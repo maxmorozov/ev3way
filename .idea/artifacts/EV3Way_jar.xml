@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="EV3Way:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/EV3Way_jar</output-path>
+    <root id="archive" name="EV3Way.jar">
+      <element id="module-output" name="EV3Way" />
+    </root>
+  </artifact>
+</component>
