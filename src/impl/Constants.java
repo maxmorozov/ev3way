@@ -11,6 +11,7 @@ public class Constants {
     public static final float GYRO_CALIBRATION_FILTER = 0.8f;	    // calibrate gyro offset
     public static final float GYRO_COMPENSATION_FILTER = 0.999f;	// compensate gyro drift
 
+    public static final int CONTROLLER_TIME = 8; //8 mc
     /**
      * Number of milliseconds for calibrating gyro
      */

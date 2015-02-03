@@ -30,9 +30,9 @@ public class ControllerTask implements Runnable {
     private int gyroMax, gyroMin;
 
     //Prepare to balance
-    private int countDown = 1500;
     //1 sec = 250 periods
-    private static final int BEEP_INTERVAL = 250;
+    private static final int BEEP_INTERVAL = 1000 / Constants.CONTROLLER_TIME;
+    private int countDown = BEEP_INTERVAL * 6; //6 seconds
 
     private final float[] sample;
 
@@ -88,7 +88,7 @@ public class ControllerTask implements Runnable {
                 gyroMin = Math.min(gyroMin, gyroValue);
 
                 if (avgCount == Constants.GYRO_OFFSET_SAMPLES) {
-                    if ((gyroMax - gyroMin) > 1) {
+                    if ((gyroMax - gyroMin) > 3) {
                         currentState = State.Init;
                     } else {
                         gyroOffset = gyroOffset / avgCount + 1;
