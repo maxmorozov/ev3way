@@ -1,5 +1,6 @@
 import impl.Constants;
 import impl.SharedState;
+import impl.TiltFilter;
 import lejos.hardware.Button;
 import lejos.hardware.Key;
 import lejos.hardware.KeyListener;
@@ -111,9 +112,10 @@ public class EV3Way {
     public void monitor() {
         while (!Button.ESCAPE.isDown()) {
             LCD.clear(0);
-            LCD.drawString(String.format("Avg: %g", tasks[0].getAveragePeriod()), 0, 0);
             LCD.clear(1);
+            LCD.drawString(String.format("Avg: %g", tasks[0].getAveragePeriod()), 0, 0);
             LCD.drawString(String.format("Dev: %g", tasks[0].getPeriodDeviation()), 0, 1);
+
             Delay.msDelay(1000);
         }
     }

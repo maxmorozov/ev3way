@@ -22,7 +22,7 @@ public class BalanceController {
     static final float A_D = 0.9f;//0.8F;       /* low pass filter gain for motors average count */
     static final float A_R = 0.996F;     /* low pass filter gain for motors target count */
 
-    static final float psi_ref = -10f * DEG2RAD;    /* equilibrium point angle. The robot does not have perfect symmetry and the equilibrium point angle is not zero. */
+    static final float psi_ref = -10f;    /* equilibrium point angle. The robot does not have perfect symmetry and the equilibrium point angle is not zero. */
 
 	//NXT 2.0 wheels
 	//Discrete model
