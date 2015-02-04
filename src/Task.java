@@ -13,7 +13,10 @@ public class Task extends Thread {
 
     private volatile boolean stop = false;
 
-    private final DeviationCalc devCalc = new DeviationCalc();
+    private volatile boolean reset = false;
+
+    private DeviationCalc devCalc = new DeviationCalc();
+    private DeviationCalc taskCalc = new DeviationCalc();
 
     public Task(int period, Runnable taskAction) {
         this.period = period;
@@ -41,7 +44,16 @@ public class Task extends Thread {
         long end = System.currentTimeMillis();
         long prior_time = System.nanoTime();
         while (!stop) {
+            if (reset) {
+                devCalc = new DeviationCalc();
+                taskCalc = new DeviationCalc();
+                reset = false;
+            }
+
+            long t1 = System.nanoTime();
             taskAction.run();
+            long t2 = System.nanoTime();
+            taskCalc.add((t2-t1)/1e6f);
 
             end += period;
             try {
@@ -65,5 +77,17 @@ public class Task extends Thread {
 
     public float getPeriodDeviation() {
         return devCalc.getDeviation();
+    }
+
+    public float getAverageTask() {
+        return taskCalc.getAverage();
+    }
+
+    public float getTaskDeviation() {
+        return taskCalc.getDeviation();
+    }
+
+    public void reset() {
+        reset = true;
     }
 }

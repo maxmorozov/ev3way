@@ -110,11 +110,20 @@ public class EV3Way {
     }
 
     public void monitor() {
+        int counter = 0;
         while (!Button.ESCAPE.isDown()) {
             LCD.clear(0);
             LCD.clear(1);
             LCD.drawString(String.format("Avg: %g", tasks[0].getAveragePeriod()), 0, 0);
             LCD.drawString(String.format("Dev: %g", tasks[0].getPeriodDeviation()), 0, 1);
+
+            LCD.clear(2);
+            LCD.clear(3);
+            LCD.drawString(String.format("Avg: %g", tasks[0].getAverageTask()), 0, 2);
+            LCD.drawString(String.format("Dev: %g", tasks[0].getTaskDeviation()), 0, 3);
+
+            if ((++counter % 10) == 0)
+                tasks[0].reset();
 
             Delay.msDelay(1000);
         }
