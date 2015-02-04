@@ -82,13 +82,13 @@ public class BalanceController {
      * @return encoded power for left and right motors. Low byte - left motor, high byte - right motor
      */
     public short control(int cmd_forward, int cmd_turn, float gyro, float gyro_offset, int left_motor_pos, int right_motor_pos, float battery_voltage, float angle) {
-        //Smooth velocity command using Low Path Filter to suppress rapid input change.
+        //Smooth velocity command using Low Pass Filter to suppress rapid input change.
         float thetadot_cmd_lpf = (((cmd_forward / CMD_MAX) * K_THETADOT) * (1 - A_R)) + (A_R * prior_thetadot_cmd_lpf);
 
         //Calculate the wheel position
-        float theta = (left_motor_pos + right_motor_pos) / 2 + prior_psi;
+        float theta = (left_motor_pos + right_motor_pos) / 2.0f + prior_psi;
 
-        //Smooth measured velocity value using Low Path Filter to reduce the noise because it makes extra control input.
+        //Smooth measured velocity value using Low Pass Filter to reduce the noise because it makes extra control input.
         float theta_lpf = (1 - A_D) * theta + A_D * prior_theta_lpf;
 
         //Calculate wheels' angular velocity by differentiating the wheels' position

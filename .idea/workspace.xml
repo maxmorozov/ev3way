@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b433d32-1662-4aa9-9fd0-f3a794884270" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tasks/MonitorTask.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\DeviationCalc.java" afterPath="$PROJECT_DIR$/src/utils/DeviationCalc.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tasks/AccelerationReadTask.java" afterPath="$PROJECT_DIR$/src/tasks/AccelerationReadTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/impl/BalanceController.java" afterPath="$PROJECT_DIR$/src/impl/BalanceController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EV3Way.java" afterPath="$PROJECT_DIR$/src/EV3Way.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Task.java" afterPath="$PROJECT_DIR$/src/Task.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="EV3Way.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,8 +63,8 @@
       <file leaf-file-name="BalanceController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/impl/BalanceController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.0320733" vertical-offset="2703" max-vertical-offset="4029">
-              <caret line="106" column="34" selection-start-line="106" selection-start-column="34" selection-end-line="106" selection-end-column="34" />
+            <state vertical-scroll-proportion="-0.6597938" vertical-offset="1341" max-vertical-offset="4029">
+              <caret line="45" column="18" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
               <folding>
                 <element signature="e#2612#2613#0" expanded="true" />
                 <element signature="e#2679#2680#0" expanded="true" />
@@ -858,12 +852,12 @@
       <workItem from="1423032104402" duration="308000" />
       <workItem from="1423033030340" duration="3838000" />
       <workItem from="1423039124947" duration="1059000" />
-      <workItem from="1423080010393" duration="8627000" />
+      <workItem from="1423080010393" duration="10282000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37298000" />
+    <option name="totallyTimeSpent" value="38953000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1372,8 +1366,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/impl/BalanceController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.0320733" vertical-offset="2703" max-vertical-offset="4029">
-          <caret line="106" column="34" selection-start-line="106" selection-start-column="34" selection-end-line="106" selection-end-column="34" />
+        <state vertical-scroll-proportion="-0.6597938" vertical-offset="1341" max-vertical-offset="4029">
+          <caret line="45" column="18" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
           <folding>
             <element signature="e#2612#2613#0" expanded="true" />
             <element signature="e#2679#2680#0" expanded="true" />
