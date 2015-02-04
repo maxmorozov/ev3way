@@ -24,7 +24,6 @@ public class AccelerationReadTask implements Runnable {
     public void run() {
         accelSensor.fetchSample(accelValues, 0);
         float angle = (float)Math.atan2(-accelValues[1], accelValues[0]) * Constants.RAD_TO_DEGREE;
-//            float angle = -(float) Math.atan(accelValues[1] / accelValues[0]) * Constants.RAD_TO_DEGREE;
         shared.setBodyAngle(angle);
     }
 }

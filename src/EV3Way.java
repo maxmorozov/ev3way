@@ -17,13 +17,12 @@ import navigation.impl.AutonomousNavigator;
 import navigation.impl.BTNavigator;
 import navigation.impl.SteadyStateNavigator;
 import sensors.HiTechnicGyro;
-import tasks.AccelerationReadTask;
-import tasks.BatteryMonitoringTask;
-import tasks.ControllerTask;
-import tasks.ObstacleDetectionTask;
+import tasks.*;
 
 public class EV3Way {
     private Task[] tasks = new Task[4];
+    private MonitorTask monitor;
+    private boolean isReset = false;
 
 
     public static void main(String[] args) {
@@ -45,7 +44,7 @@ public class EV3Way {
 
         app.start();
 
-        app.monitor();
+        //app.monitor();
     }
 
     public EV3Way() {
@@ -67,7 +66,9 @@ public class EV3Way {
             }
         };
 
-        tasks[0] = new Task(Constants.CONTROLLER_TIME, new ControllerTask(gyro.getRateMode(), leftMotor, rightMotor, navigator, state, stopper), Thread.MAX_PRIORITY);
+        ControllerTask controlTask = new ControllerTask(gyro.getRateMode(), leftMotor, rightMotor, navigator, state, stopper);
+        //monitor = new MonitorTask(controlTask);
+        tasks[0] = new Task(Constants.CONTROLLER_TIME, controlTask, Thread.MAX_PRIORITY);
         tasks[1] = new Task(20, new ObstacleDetectionTask(irSensor.getDistanceMode(), state, navigator));
         tasks[2] = new Task(100, new BatteryMonitoringTask(state, navigator));
         tasks[3] = new Task(12, new AccelerationReadTask(accelSensor, state));
@@ -114,16 +115,13 @@ public class EV3Way {
         while (!Button.ESCAPE.isDown()) {
             LCD.clear(0);
             LCD.clear(1);
-            LCD.drawString(String.format("Avg: %g", tasks[0].getAveragePeriod()), 0, 0);
-            LCD.drawString(String.format("Dev: %g", tasks[0].getPeriodDeviation()), 0, 1);
+            LCD.drawString(String.format("Q: %4.2g %4.2g", monitor.getAveragePeriod(), monitor.getPeriodDeviation()), 0, 0);
+            LCD.drawString(String.format("T: %4.2g %4.2g", monitor.getAverageTask(), monitor.getTaskDeviation()), 0, 1);
 
-            LCD.clear(2);
-            LCD.clear(3);
-            LCD.drawString(String.format("Avg: %g", tasks[0].getAverageTask()), 0, 2);
-            LCD.drawString(String.format("Dev: %g", tasks[0].getTaskDeviation()), 0, 3);
-
-            if ((++counter % 10) == 0)
-                tasks[0].reset();
+            if (!isReset && (++counter % 10) == 0) {
+                monitor.reset();
+                isReset = true;
+            }
 
             Delay.msDelay(1000);
         }
