@@ -15,7 +15,7 @@ public class BalanceController {
     static final float CMD_MAX = 100.0f;
     static final float POWER_MAX = 100.0f;
 
-    static final float DEG2RAD = 0.01745329238f;
+    static final float DEG2RAD = (float) (Math.PI/180);
     static final float EXEC_PERIOD = Constants.CONTROLLER_TIME / 1000f;
     static final float EXEC_FREQUENCY = 1 / EXEC_PERIOD;
 
@@ -62,6 +62,7 @@ public class BalanceController {
      * Last angle from the accelerometer sensor
      */
     private float lastMeasuredAngle = 0;
+    private boolean firstStep = true;
 
 
     public BalanceController() {
@@ -82,6 +83,11 @@ public class BalanceController {
      * @return encoded power for left and right motors. Low byte - left motor, high byte - right motor
      */
     public short control(int cmd_forward, int cmd_turn, float gyro, float gyro_offset, int left_motor_pos, int right_motor_pos, float battery_voltage, float angle) {
+        if (firstStep) {
+            lastGoodRegulationTime = System.currentTimeMillis();
+            firstStep = false;
+        }
+
         //Smooth velocity command using Low Pass Filter to suppress rapid input change.
         float thetadot_cmd_lpf = (((cmd_forward / CMD_MAX) * K_THETADOT) * (1 - A_R)) + (A_R * prior_thetadot_cmd_lpf);
 
@@ -146,7 +152,7 @@ public class BalanceController {
         //Kalman filter update
         filter.state_update(gyro - gyro_offset, EXEC_PERIOD);
         if (lastMeasuredAngle != angle) {
-            filter.kalman_update(angle);
+            filter.kalman_update(angle - psi_ref);
             lastMeasuredAngle = angle;
         }
 
@@ -154,13 +160,13 @@ public class BalanceController {
         float psidot = filter.get_kalman_rate();
         float psi = filter.get_kalman_angle();
 
-        //Smooth velocity command using Low Path Filter to suppress rapid input change.
+        //Smooth velocity command using Low Pass Filter to suppress rapid input change.
         float thetadot_cmd_lpf = (((cmd_forward / CMD_MAX) * K_THETADOT) * (1 - A_R)) + (A_R * prior_thetadot_cmd_lpf);
 
         //Calculate the wheel position
         float theta = (left_motor_pos + right_motor_pos) / 2.0f + psi;
 
-        //Smooth measured velocity value using Low Path Filter to reduce the noise because it makes extra control input.
+        //Smooth measured velocity value using Low Pass Filter to reduce the noise because it makes extra control input.
         float theta_lpf = (1 - A_D) * theta + A_D * prior_theta_lpf;
 
         //Calculate wheels' angular velocity by differentiating the wheels' position
@@ -169,7 +175,7 @@ public class BalanceController {
         //calculating (x_ref - x)*KF where x_ref and x are vectors and KF is the Feedback Gain column
 		//the reference values for psi and psidot are 0.
         float volume = (prior_theta_ref - theta) * K_F1
-                + (psi_ref - psi) * K_F2
+                - psi * K_F2
                 + (thetadot_cmd_lpf - theta_dot) * K_F3
                 - psidot * K_F4;
 
@@ -198,6 +204,9 @@ public class BalanceController {
         //Limiting the motor power
         byte pwm_l = (byte) saturate(power + pwm_turn, -POWER_MAX, POWER_MAX);
         byte pwm_r = (byte) saturate(power - pwm_turn + wheelSyncDelta, -POWER_MAX, POWER_MAX);
+
+        //Calculating body pitch by integrating the body angular velocity
+        //prior_psi = (EXEC_PERIOD * psidot) + prior_psi;
 
         //Integrating the reference wheel rotation speed to get next  wheel position
         float temp_theta_ref = EXEC_PERIOD * thetadot_cmd_lpf + prior_theta_ref;

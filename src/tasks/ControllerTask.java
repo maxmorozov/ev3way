@@ -120,7 +120,7 @@ public class ControllerTask implements Runnable {
 
                 float gyroValue = readValue();
 
-                //gyroOffset = gyroOffset * Constants.GYRO_COMPENSATION_FILTER + (1 - Constants.GYRO_COMPENSATION_FILTER) * gyroValue;
+                gyroOffset = gyroOffset * Constants.GYRO_COMPENSATION_FILTER + (1 - Constants.GYRO_COMPENSATION_FILTER) * gyroValue;
 
                 short result = controller.control(
                         cmd_forward,
@@ -137,6 +137,10 @@ public class ControllerTask implements Runnable {
                 if (!controller.isOk()) {
                     Sound.beepSequenceUp();
                     LCD.drawString("Oops... I fell", 0, 4);
+
+                    leftMotor.flt();
+                    rightMotor.flt();
+
                     stopper.run();
 
                     result = 0;

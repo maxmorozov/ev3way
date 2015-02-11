@@ -28,7 +28,7 @@ public class Constants {
     public static final int INITIAL_BALANCING_PERIOD = 5000;
 
     /* minimum distance in cm for obstacle avoidance */
-    public static final int MIN_DISTANCE = 40;
+    public static final int MIN_DISTANCE = 80;
 
     /**
      * Converts radians to degrees
