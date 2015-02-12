@@ -1,10 +1,9 @@
-package navigation.impl;
+package segway.navigation;
 
 import lejos.hardware.Bluetooth;
 import lejos.hardware.lcd.LCD;
-import lejos.remote.nxt.BTConnection;
 import lejos.remote.nxt.NXTConnection;
-import navigation.Navigator;
+import segway.Navigator;
 
 /**
  * @author Max Morozov

@@ -1,5 +1,7 @@
-import impl.Constants;
-import impl.SharedState;
+package segway;
+
+import segway.estimators.KalmanEstimator;
+import segway.utils.SharedState;
 import lejos.hardware.Button;
 import lejos.hardware.Key;
 import lejos.hardware.KeyListener;
@@ -9,17 +11,16 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.HiTechnicAccelerometer;
 import lejos.utility.TextMenu;
-import navigation.Navigator;
-import navigation.impl.AutonomousNavigator;
-import navigation.impl.BTNavigator;
-import navigation.impl.SteadyStateNavigator;
-import sensors.EV3IRSensor;
-import sensors.HiTechnicGyro;
-import tasks.*;
+import segway.estimators.LowPassFilterEstimator;
+import segway.navigation.AutonomousNavigator;
+import segway.navigation.BTNavigator;
+import segway.navigation.SteadyStateNavigator;
+import segway.sensors.EV3IRSensor;
+import segway.sensors.HiTechnicGyro;
+import segway.tasks.*;
 
 public class EV3Way {
     private Task[] tasks = new Task[4];
-    private boolean isReset = false;
 
 
     public static void main(String[] args) {
@@ -63,7 +64,8 @@ public class EV3Way {
             }
         };
 
-        tasks[0] = new Task(Constants.CONTROLLER_TIME, new ControllerTask(gyro.getRateMode(), leftMotor, rightMotor, navigator, state, stopper), Thread.MAX_PRIORITY);
+        StateVariablesEstimator estimator = getEstimator(state);
+        tasks[0] = new Task(Constants.CONTROLLER_TIME, new ControllerTask(gyro.getRateMode(), leftMotor, rightMotor, navigator, state, estimator, stopper), Thread.MAX_PRIORITY);
         tasks[1] = new Task(20, new ObstacleDetectionTask(irSensor.getDistanceMode(), state, navigator));
         tasks[2] = new Task(100, new BatteryMonitoringTask(state, navigator));
         tasks[3] = new Task(12, new AccelerationReadTask(accelSensor, state));
@@ -93,6 +95,28 @@ public class EV3Way {
         return null;
     }
 
+    /**
+     * Selects the appropriate navigator
+     *
+     * @return navigator instance bn
+     */
+    private StateVariablesEstimator getEstimator(SharedState state) {
+        String[] navigatorItems = {"Low Pass Filter", "Kalman Filter", "Exit"};
+        TextMenu main = new TextMenu(navigatorItems, 1, "Estimator");
+        LCD.clear();
+        int selection = main.select();
+        LCD.clear();
+
+        switch (selection) {
+            case 0:
+                return new LowPassFilterEstimator();
+            case 1:
+                return new KalmanEstimator(state);
+        }
+        System.exit(0);
+        return null;
+    }
+
     public void start() {
         for (Task task : tasks) {
             task.start();
@@ -104,12 +128,4 @@ public class EV3Way {
             task.finish();
         }
     }
-
-/*
-    private void waitTasks() throws InterruptedException {
-        for (Task task : tasks) {
-            task.join();
-        }
-    }
-*/
 }

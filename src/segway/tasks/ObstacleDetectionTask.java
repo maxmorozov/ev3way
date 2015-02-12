@@ -1,9 +1,9 @@
-package tasks;
+package segway.tasks;
 
-import impl.Constants;
-import impl.SharedState;
+import segway.Constants;
+import segway.utils.SharedState;
 import lejos.robotics.SampleProvider;
-import navigation.Navigator;
+import segway.Navigator;
 
 /**
  * @author Max Morozov

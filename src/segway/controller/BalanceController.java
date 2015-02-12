@@ -1,4 +1,6 @@
-package impl;
+package segway.controller;
+
+import segway.Constants;
 
 /**
  * This controller is tuned to NXT 2.0 wheels.
@@ -22,8 +24,6 @@ public class BalanceController {
     static final float A_D = 0.9f;//0.8F;       /* low pass filter gain for motors average count */
     static final float A_R = 0.996F;     /* low pass filter gain for motors target count */
 
-    static final float psi_ref = -9.5f;    /* equilibrium point angle. The robot does not have perfect symmetry and the equilibrium point angle is not zero. */
-
 	//NXT 2.0 wheels
 	//Discrete model
     static final float K_F1 = -0.770037357557574F * DEG2RAD;
@@ -43,7 +43,6 @@ public class BalanceController {
 
     //state variables on the previous step
     private float prior_err_theta = 0;
-    private float prior_psi = 0;              //Body pitch angle, calculated by integrating the gyro values
     private float prior_theta_lpf = 0;
     private float prior_theta_ref = 0;
     private float prior_thetadot_cmd_lpf = 0; //wheels angular velocity, filtered by Low Path Filter to suppress rapid input change.
@@ -52,37 +51,24 @@ public class BalanceController {
     private boolean prior_flag_turn = false;
     private int theta_offset = 0;
 
+    //these variables are used to detect falling
+    private boolean firstStep = true;
     private long lastGoodRegulationTime;
 
-    /**
-     * Kalman filter to evaluate angle and angular velocity
-     */
-    private final TiltFilter filter = new TiltFilter();
-    /**
-     * Last angle from the accelerometer sensor
-     */
-    private float lastMeasuredAngle = 0;
-    private boolean firstStep = true;
-
-
-    public BalanceController() {
-        lastGoodRegulationTime = System.currentTimeMillis();
-    }
 
     /**
      * Performs the regulation cycle. Execution time is 0.583 ms
      *
      * @param cmd_forward     speed of the forward movement. -100(backward max.) to 100(forward max.)
      * @param cmd_turn        speed of the turning. -100(turn left max.) to 100(turn right max.)
-     * @param gyro            angular velocity value from the gyro sensor
-     * @param gyro_offset     value to compensate gyro drift
+     * @param psidot          the body angular velocity
+     * @param psi             body pitch
      * @param left_motor_pos  left motor rotor position in degrees
      * @param right_motor_pos right motor rotor position in degrees
      * @param battery_voltage the battery voltage in milli-volts (mV)
-     * @param angle           body angle value from the accelerometer
      * @return encoded power for left and right motors. Low byte - left motor, high byte - right motor
      */
-    public short control(int cmd_forward, int cmd_turn, float gyro, float gyro_offset, int left_motor_pos, int right_motor_pos, float battery_voltage, float angle) {
+    public short control(int cmd_forward, int cmd_turn, float psidot, float psi, int left_motor_pos, int right_motor_pos, float battery_voltage) {
         if (firstStep) {
             lastGoodRegulationTime = System.currentTimeMillis();
             firstStep = false;
@@ -92,7 +78,7 @@ public class BalanceController {
         float thetadot_cmd_lpf = (((cmd_forward / CMD_MAX) * K_THETADOT) * (1 - A_R)) + (A_R * prior_thetadot_cmd_lpf);
 
         //Calculate the wheel position
-        float theta = (left_motor_pos + right_motor_pos) / 2.0f + prior_psi;
+        float theta = (left_motor_pos + right_motor_pos) / 2.0f + psi;
 
         //Smooth measured velocity value using Low Pass Filter to reduce the noise because it makes extra control input.
         float theta_lpf = (1 - A_D) * theta + A_D * prior_theta_lpf;
@@ -100,12 +86,10 @@ public class BalanceController {
         //Calculate wheels' angular velocity by differentiating the wheels' position
         float theta_dot = (theta_lpf - prior_theta_lpf) * EXEC_FREQUENCY;
 
-        //calculate the body angular velocity
-        float psidot = (gyro - gyro_offset);
-
         //calculating (x_ref - x)*KF where x_ref and x are vectors and KF is the Feedback Gain column
+        //the reference values for psi and psidot are 0.
         float volume = (prior_theta_ref - theta) * K_F1
-                - prior_psi * K_F2
+                - psi * K_F2
                 + (thetadot_cmd_lpf - theta_dot) * K_F3 //calculating the motor speed using discrete derivative
                 - psidot * K_F4;
 
@@ -135,9 +119,6 @@ public class BalanceController {
         byte pwm_l = (byte) saturate(power + pwm_turn, -POWER_MAX, POWER_MAX);
         byte pwm_r = (byte) saturate(power - pwm_turn + wheelSyncDelta, -POWER_MAX, POWER_MAX);
 
-        //Calculating body pitch by integrating the body angular velocity
-        prior_psi = (EXEC_PERIOD * psidot) + prior_psi;
-
         //Integrating the reference wheel rotation speed to get next  wheel position
         float temp_theta_ref = EXEC_PERIOD * thetadot_cmd_lpf + prior_theta_ref;
         //Integrating the regulation error
@@ -148,77 +129,6 @@ public class BalanceController {
         prior_theta_lpf = theta_lpf;
 
         return (short) ((pwm_l & 0xFF) | ((pwm_r & 0xFF) << 8));
-/*
-        //Kalman filter update
-        filter.state_update(gyro - gyro_offset, EXEC_PERIOD);
-        if (lastMeasuredAngle != angle) {
-            filter.kalman_update(angle - psi_ref);
-            lastMeasuredAngle = angle;
-        }
-
-        //calculate the body angular velocity
-        float psidot = filter.get_kalman_rate();
-        float psi = filter.get_kalman_angle();
-
-        //Smooth velocity command using Low Pass Filter to suppress rapid input change.
-        float thetadot_cmd_lpf = (((cmd_forward / CMD_MAX) * K_THETADOT) * (1 - A_R)) + (A_R * prior_thetadot_cmd_lpf);
-
-        //Calculate the wheel position
-        float theta = (left_motor_pos + right_motor_pos) / 2.0f + psi;
-
-        //Smooth measured velocity value using Low Pass Filter to reduce the noise because it makes extra control input.
-        float theta_lpf = (1 - A_D) * theta + A_D * prior_theta_lpf;
-
-        //Calculate wheels' angular velocity by differentiating the wheels' position
-        float theta_dot = (theta_lpf - prior_theta_lpf) * EXEC_FREQUENCY;
-
-        //calculating (x_ref - x)*KF where x_ref and x are vectors and KF is the Feedback Gain column
-		//the reference values for psi and psidot are 0.
-        float volume = (prior_theta_ref - theta) * K_F1
-                - psi * K_F2
-                + (thetadot_cmd_lpf - theta_dot) * K_F3
-                - psidot * K_F4;
-
-        //adding integral of error
-        volume += K_I * prior_err_theta;
-
-        float power = (volume / (BATTERY_GAIN * battery_voltage - BATTERY_OFFSET)) * POWER_MAX;
-
-        if (Math.abs(power) < POWER_MAX)
-            lastGoodRegulationTime = System.currentTimeMillis();
-
-        float pwm_turn = (cmd_turn / CMD_MAX) * K_PHIDOT;
-
-        //Wheels synchronization
-        float wheelSyncDelta = 0;
-        boolean flag_turn = cmd_turn != 0;
-        if (!flag_turn) {
-            int theta_diff = left_motor_pos - right_motor_pos;
-            if (prior_flag_turn) {
-                theta_offset = theta_diff;
-            }
-            wheelSyncDelta = (theta_diff - theta_offset) * K_SYNC;
-        }
-        prior_flag_turn = flag_turn;
-
-        //Limiting the motor power
-        byte pwm_l = (byte) saturate(power + pwm_turn, -POWER_MAX, POWER_MAX);
-        byte pwm_r = (byte) saturate(power - pwm_turn + wheelSyncDelta, -POWER_MAX, POWER_MAX);
-
-        //Calculating body pitch by integrating the body angular velocity
-        //prior_psi = (EXEC_PERIOD * psidot) + prior_psi;
-
-        //Integrating the reference wheel rotation speed to get next  wheel position
-        float temp_theta_ref = EXEC_PERIOD * thetadot_cmd_lpf + prior_theta_ref;
-        //Integrating the regulation error
-        prior_err_theta = (prior_theta_ref - theta) * EXEC_PERIOD + prior_err_theta;
-        prior_theta_ref = temp_theta_ref;
-
-        prior_thetadot_cmd_lpf = thetadot_cmd_lpf;
-        prior_theta_lpf = theta_lpf;
-
-        return (short) ((pwm_l & 0xFF) | ((pwm_r & 0xFF) << 8));
-*/
     }
 
     /**

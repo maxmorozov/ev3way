@@ -1,7 +1,7 @@
-package tasks;
+package segway.tasks;
 
-import impl.Constants;
-import impl.SharedState;
+import segway.Constants;
+import segway.utils.SharedState;
 import lejos.hardware.sensor.SensorMode;
 
 /**

@@ -1,3 +1,5 @@
+package segway;
+
 /**
  * @author Max Morozov
  */

@@ -1,4 +1,4 @@
-package sensors;
+package segway.sensors;
 
 import lejos.hardware.port.Port;
 import lejos.hardware.port.UARTPort;

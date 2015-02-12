@@ -1,6 +1,6 @@
-package tasks;
+package segway.tasks;
 
-import utils.DeviationCalc;
+import segway.utils.DeviationCalc;
 
 /**
  * @author Max Morozov

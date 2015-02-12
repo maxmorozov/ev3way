@@ -1,4 +1,4 @@
-package impl;
+package segway;
 
 /**
  * Constants calculated from model by LQR optimization

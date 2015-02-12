@@ -1,14 +1,15 @@
-package tasks;
+package segway.tasks;
 
-import impl.BalanceController;
-import impl.Constants;
-import impl.SharedState;
+import segway.StateVariablesEstimator;
+import segway.controller.BalanceController;
+import segway.Constants;
+import segway.utils.SharedState;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.DCMotor;
 import lejos.robotics.EncoderMotor;
-import navigation.Navigator;
+import segway.Navigator;
 
 /**
  * @author Max Morozov
@@ -24,6 +25,8 @@ public class ControllerTask implements Runnable {
     private final EncoderMotor leftMotor;
     private final EncoderMotor rightMotor;
 
+    private final StateVariablesEstimator estimator;
+
     //Gyro offset
     private float gyroOffset = 0;
     private int avgCount = 0;
@@ -34,6 +37,8 @@ public class ControllerTask implements Runnable {
     private static final int BEEP_INTERVAL = 1000 / Constants.CONTROLLER_TIME;
     private int countDown = BEEP_INTERVAL * 6; //6 seconds
 
+    static final float EXEC_PERIOD = Constants.CONTROLLER_TIME / 1000f;
+
     private final float[] sample;
 
     //private long calibrationEndTime;
@@ -41,12 +46,13 @@ public class ControllerTask implements Runnable {
     //the object to stop the program when the robot fell
     private final Runnable stopper;
 
-    public ControllerTask(SensorMode gyro, EncoderMotor leftMotor, EncoderMotor rightMotor, Navigator navigator, SharedState shared, Runnable stopper) {
+    public ControllerTask(SensorMode gyro, EncoderMotor leftMotor, EncoderMotor rightMotor, Navigator navigator, SharedState shared, StateVariablesEstimator estimator, Runnable stopper) {
         this.gyro = gyro;
         this.leftMotor = leftMotor;
         this.rightMotor = rightMotor;
         this.navigator = navigator;
         this.shared = shared;
+        this.estimator = estimator;
         this.stopper = stopper;
         this.sample = new float[gyro.sampleSize()];
     }
@@ -76,7 +82,7 @@ public class ControllerTask implements Runnable {
                 break;
 
             case Calibrating: {
-                //calibrate using low path filter
+                //calibrate using low pass filter
                 //gyroOffset = gyroOffset * Constants.GYRO_CALIBRATION_FILTER + (1 - Constants.GYRO_CALIBRATION_FILTER) * gyro.readValue();
 
                 //calibrate using average value of gyro
@@ -91,7 +97,7 @@ public class ControllerTask implements Runnable {
                     if ((gyroMax - gyroMin) > 3) {
                         currentState = State.Init;
                     } else {
-                        gyroOffset = gyroOffset / avgCount + 1;
+                        estimator.init(gyroOffset / avgCount + 1);
 
                         currentState = State.Prepare;
                         displayBalanceWarning();
@@ -119,19 +125,16 @@ public class ControllerTask implements Runnable {
                 byte cmd_turn = (byte) ((navigation >> 8) & 0xff);
 
                 float gyroValue = readValue();
-
-                gyroOffset = gyroOffset * Constants.GYRO_COMPENSATION_FILTER + (1 - Constants.GYRO_COMPENSATION_FILTER) * gyroValue;
+                estimator.updateState(gyroValue, EXEC_PERIOD);
 
                 short result = controller.control(
                         cmd_forward,
                         cmd_turn,
-                        gyroValue,
-                        gyroOffset,
+                        estimator.getAngularVelocity(),
+                        estimator.getAngle(),
                         leftMotor.getTachoCount(),
                         rightMotor.getTachoCount(),
-                        shared.getBatteryVoltage(),
-                        shared.getBodyAngle());
-                        //Battery.getVoltageMilliVolt());
+                        shared.getBatteryVoltage());
 
                 //Check if the robot has fallen
                 if (!controller.isOk()) {

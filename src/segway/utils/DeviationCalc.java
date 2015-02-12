@@ -1,4 +1,4 @@
-package utils;
+package segway.utils;
 
 /**
  * @author Max Morozov

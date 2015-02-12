@@ -1,9 +1,11 @@
-package navigation;
+package segway.navigation;
+
+import segway.Navigator;
 
 /**
  * @author Max Morozov
  */
-public interface Navigator {
+public class SteadyStateNavigator implements Navigator{
     /**
      * Returns the encoded control.
      * <p/>
@@ -13,17 +15,24 @@ public interface Navigator {
      *
      * @return encoded control
      */
-    short getControl();
+    @Override
+    public short getControl() {
+        return 0;
+    }
 
     /**
      * Notifies the navigator that som obstacle is detected or not detected
      *
      * @param isObstacle true if an obstacle is detected, false otherwise
      */
-    void obstacleDetected(boolean isObstacle);
+    @Override
+    public void obstacleDetected(boolean isObstacle) {
+    }
 
     /**
      * Indicates that the robot can move without external control
      */
-    void enableAutonomousDrive();
+    @Override
+    public void enableAutonomousDrive() {
+    }
 }

@@ -1,11 +1,14 @@
-package navigation.impl;
+package segway.navigation;
 
-import navigation.Navigator;
+import segway.Navigator;
 
 /**
  * @author Max Morozov
  */
-public class SteadyStateNavigator implements Navigator{
+public class AutonomousNavigator implements Navigator {
+    private volatile boolean enableMovement = false;
+    private volatile boolean isObstacle = false;
+
     /**
      * Returns the encoded control.
      * <p/>
@@ -17,6 +20,18 @@ public class SteadyStateNavigator implements Navigator{
      */
     @Override
     public short getControl() {
+        if (enableMovement) {
+            byte cmd_forward, cmd_turn;
+            if (isObstacle) {
+                cmd_forward = 0;
+                cmd_turn = 100;
+            } else {
+                cmd_forward = 100;
+                cmd_turn = 0;
+            }
+            return (short) ((cmd_forward & 0xFF) | ((cmd_turn & 0xFF) << 8));
+        }
+
         return 0;
     }
 
@@ -27,6 +42,7 @@ public class SteadyStateNavigator implements Navigator{
      */
     @Override
     public void obstacleDetected(boolean isObstacle) {
+        this.isObstacle = isObstacle;
     }
 
     /**
@@ -34,5 +50,6 @@ public class SteadyStateNavigator implements Navigator{
      */
     @Override
     public void enableAutonomousDrive() {
+        enableMovement = true;
     }
 }

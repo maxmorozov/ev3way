@@ -1,4 +1,6 @@
-package impl;
+package segway.estimators;
+
+import segway.Constants;
 
 public class TiltFilter {
     /* -*- indent-tabs-mode:T; c-basic-offset:8; tab-width:8; -*- vi: set ts=8:
@@ -123,7 +125,7 @@ public class TiltFilter {
      * to read, debug and extend, but also allows us to do this with
      * very little CPU time.
      */
-    void state_update(
+    public void state_update(
             final float q_m, /* Pitch gyro measurement */
             final float dt) {
         /* Unbias our gyro */
@@ -197,7 +199,7 @@ public class TiltFilter {
      * estimate and the angle measurement has no relation to the gyro
      * bias.
      */
-    void kalman_update(
+    public void kalman_update(
             final float angle_m /* angle in degree, determined from accel */) {
         /* Compute our measured angle and the error in our estimate */
         final float angle_err = angle_m - angle;
@@ -297,15 +299,15 @@ public class TiltFilter {
     }
 
     // in deg/sec
-    float get_kalman_rate() {
+    public float get_kalman_rate() {
         return rate;
     }
 
-    float get_kalman_gyro_bias() {
+    public float get_kalman_gyro_bias() {
         return q_bias;
     }
 
-    float get_kalman_angle() {
+    public float get_kalman_angle() {
         return angle;
     }
 }

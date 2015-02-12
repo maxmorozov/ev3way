@@ -1,6 +1,7 @@
-package impl;
+package segway.utils;
 
 import lejos.hardware.Battery;
+import segway.Constants;
 
 /**
  * @author Max Morozov
