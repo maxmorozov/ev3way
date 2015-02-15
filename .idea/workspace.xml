@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b433d32-1662-4aa9-9fd0-f3a794884270" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/segway/estimators/KalmanEstimator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/segway/estimators/LowPassFilterEstimator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/segway/StateVariablesEstimator.java" />
-      <change type="DELETED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\impl\ControllerConstants.java" afterPath="" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\EV3Way.java" afterPath="$PROJECT_DIR$/src/segway/EV3Way.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\Task.java" afterPath="$PROJECT_DIR$/src/segway/Task.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\impl\BalanceController.java" afterPath="$PROJECT_DIR$/src/segway/controller/BalanceController.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\impl\Constants.java" afterPath="$PROJECT_DIR$/src/segway/Constants.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\impl\SharedState.java" afterPath="$PROJECT_DIR$/src/segway/utils/SharedState.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\impl\TiltFilter.java" afterPath="$PROJECT_DIR$/src/segway/estimators/TiltFilter.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\navigation\Navigator.java" afterPath="$PROJECT_DIR$/src/segway/Navigator.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\navigation\impl\AutonomousNavigator.java" afterPath="$PROJECT_DIR$/src/segway/navigation/AutonomousNavigator.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\navigation\impl\BTNavigator.java" afterPath="$PROJECT_DIR$/src/segway/navigation/BTNavigator.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\navigation\impl\SteadyStateNavigator.java" afterPath="$PROJECT_DIR$/src/segway/navigation/SteadyStateNavigator.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\sensors\EV3IRSensor.java" afterPath="$PROJECT_DIR$/src/segway/sensors/EV3IRSensor.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\sensors\HiTechnicGyro.java" afterPath="$PROJECT_DIR$/src/segway/sensors/HiTechnicGyro.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\tasks\AccelerationReadTask.java" afterPath="$PROJECT_DIR$/src/segway/tasks/AccelerationReadTask.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\tasks\BatteryMonitoringTask.java" afterPath="$PROJECT_DIR$/src/segway/tasks/BatteryMonitoringTask.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\tasks\ControllerTask.java" afterPath="$PROJECT_DIR$/src/segway/tasks/ControllerTask.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\tasks\MonitorTask.java" afterPath="$PROJECT_DIR$/src/segway/tasks/MonitorTask.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\tasks\ObstacleDetectionTask.java" afterPath="$PROJECT_DIR$/src/segway/tasks/ObstacleDetectionTask.java" />
-      <change type="MOVED" beforePath="C:\Work\Роботы\Work\Projects\ev3\EV3Way\code\EV3Way\src\utils\DeviationCalc.java" afterPath="$PROJECT_DIR$/src/segway/utils/DeviationCalc.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/segway/estimators/TiltFilter.java" afterPath="$PROJECT_DIR$/src/segway/estimators/TiltFilter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="EV3Way.iws" />
@@ -50,7 +28,46 @@
     <favorites_list name="EV3Way" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="BalanceController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/segway/controller/BalanceController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1508" max-vertical-offset="2652">
+              <caret line="95" column="34" selection-start-line="95" selection-start-column="34" selection-end-line="95" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KalmanEstimator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/segway/estimators/KalmanEstimator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="1479">
+              <caret line="10" column="35" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#791#792#0" expanded="true" />
+                <element signature="e#837#838#0" expanded="true" />
+                <element signature="e#993#994#0" expanded="true" />
+                <element signature="e#1040#1041#0" expanded="true" />
+                <element signature="e#1170#1171#0" expanded="true" />
+                <element signature="e#1198#1199#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TiltFilter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/segway/estimators/TiltFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6799308" vertical-offset="1239" max-vertical-offset="5321">
+              <caret line="96" column="64" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -80,11 +97,12 @@
         <option value="$PROJECT_DIR$/src/segway/StateVariablesEstimator.java" />
         <option value="$PROJECT_DIR$/src/segway/estimators/LowPassFilterEstimator.java" />
         <option value="$PROJECT_DIR$/src/segway/controller/TiltFilter.java" />
-        <option value="$PROJECT_DIR$/src/segway/estimators/KalmanEstimator.java" />
         <option value="$PROJECT_DIR$/src/segway/tasks/ControllerTask.java" />
         <option value="$PROJECT_DIR$/src/segway/utils/SharedState.java" />
-        <option value="$PROJECT_DIR$/src/segway/controller/BalanceController.java" />
         <option value="$PROJECT_DIR$/src/segway/EV3Way.java" />
+        <option value="$PROJECT_DIR$/src/segway/estimators/KalmanEstimator.java" />
+        <option value="$PROJECT_DIR$/src/segway/estimators/TiltFilter.java" />
+        <option value="$PROJECT_DIR$/src/segway/controller/BalanceController.java" />
       </list>
     </option>
   </component>
@@ -137,6 +155,68 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="EV3Way" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EV3Way" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EV3Way" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="segway" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EV3Way" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EV3Way" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="segway" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="estimators" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EV3Way" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EV3Way" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="segway" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -400,17 +480,19 @@
       <workItem from="1423245052847" duration="18020000" />
       <workItem from="1423675980655" duration="9844000" />
       <workItem from="1423764774685" duration="7050000" />
+      <workItem from="1423959750107" duration="773000" />
+      <workItem from="1424026865495" duration="2388000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73933000" />
+    <option name="totallyTimeSpent" value="77094000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32741398" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32814237" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852387" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -420,12 +502,11 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36040044" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36040044" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24920128" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24920128" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852387" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -437,6 +518,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852387" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -466,6 +548,38 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/segway/controller/BalanceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2652">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/segway/estimators/KalmanEstimator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1479">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <element signature="e#837#838#0" expanded="true" />
+            <element signature="e#993#994#0" expanded="true" />
+            <element signature="e#1040#1041#0" expanded="true" />
+            <element signature="e#1170#1171#0" expanded="true" />
+            <element signature="e#1198#1199#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/segway/estimators/TiltFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="5321">
+          <caret line="63" column="13" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_75/src.zip!/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.2176657" vertical-offset="14358" max-vertical-offset="33609">
@@ -492,7 +606,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.55314285" vertical-offset="179" max-vertical-offset="1054">
           <caret line="39" column="42" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -500,7 +613,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="875">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -508,7 +620,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1020">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -516,7 +627,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.136" vertical-offset="0" max-vertical-offset="875">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -532,7 +642,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.192" vertical-offset="984" max-vertical-offset="1887">
           <caret line="52" column="13" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -540,7 +649,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.09714286" vertical-offset="0" max-vertical-offset="875">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -548,15 +656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4857143" vertical-offset="0" max-vertical-offset="875">
           <caret line="25" column="52" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/segway/estimators/TiltFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.9497143" vertical-offset="4248" max-vertical-offset="5321">
-          <caret line="201" column="16" selection-start-line="201" selection-start-column="16" selection-end-line="201" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -564,15 +663,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.92720973" vertical-offset="655" max-vertical-offset="1530">
           <caret line="77" column="19" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/segway/controller/BalanceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.021858" vertical-offset="0" max-vertical-offset="2652">
-          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -590,7 +680,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.5876865" vertical-offset="849" max-vertical-offset="3808">
           <caret line="106" column="14" selection-start-line="106" selection-start-column="14" selection-end-line="106" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -598,16 +687,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24772313" vertical-offset="0" max-vertical-offset="1054">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/segway/estimators/LowPassFilterEstimator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4025501" vertical-offset="0" max-vertical-offset="1122">
+          <caret line="13" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/segway/tasks/ControllerTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.9326048" vertical-offset="0" max-vertical-offset="3400">
+          <caret line="136" column="50" selection-start-line="136" selection-start-column="50" selection-end-line="136" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/segway/estimators/KalmanEstimator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.043716" vertical-offset="0" max-vertical-offset="1513">
-          <caret line="66" column="28" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="1479">
+          <caret line="10" column="35" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#791#792#0" expanded="true" />
@@ -616,32 +717,22 @@
             <element signature="e#1040#1041#0" expanded="true" />
             <element signature="e#1170#1171#0" expanded="true" />
             <element signature="e#1198#1199#0" expanded="true" />
-            <element signature="e#1992#1993#0" expanded="true" />
-            <element signature="e#2036#2037#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/segway/estimators/LowPassFilterEstimator.java">
+    <entry file="file://$PROJECT_DIR$/src/segway/controller/BalanceController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4025501" vertical-offset="0" max-vertical-offset="1122">
-          <caret line="13" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#486#487#0" expanded="true" />
-            <element signature="e#524#525#0" expanded="true" />
-            <element signature="e#654#655#0" expanded="true" />
-            <element signature="e#682#683#0" expanded="true" />
-            <element signature="e#1430#1431#0" expanded="true" />
-            <element signature="e#1474#1475#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="1508" max-vertical-offset="2652">
+          <caret line="95" column="34" selection-start-line="95" selection-start-column="34" selection-end-line="95" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/segway/tasks/ControllerTask.java">
+    <entry file="file://$PROJECT_DIR$/src/segway/estimators/TiltFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.9326048" vertical-offset="0" max-vertical-offset="3400">
-          <caret line="136" column="50" selection-start-line="136" selection-start-column="50" selection-end-line="136" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.6799308" vertical-offset="1239" max-vertical-offset="5321">
+          <caret line="96" column="64" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
           <folding />
         </state>
       </provider>

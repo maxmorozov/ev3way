@@ -60,8 +60,8 @@ public class TiltFilter {
      * determine how well the sensors are tracking the actual state.
      */
     float[][] P = {
-        {Constants.RAD_TO_DEGREE, 0},
-        {0, Constants.RAD_TO_DEGREE}};
+        {1, 0},
+        {0, 1}};
 
     /*
      * Our two states, the angle and the gyro bias.  As a byproduct of computing
