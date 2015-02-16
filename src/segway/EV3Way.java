@@ -1,5 +1,6 @@
 package segway;
 
+import segway.estimators.CombinedEstimator;
 import segway.estimators.KalmanEstimator;
 import segway.utils.SharedState;
 import lejos.hardware.Button;
@@ -101,7 +102,7 @@ public class EV3Way {
      * @return navigator instance bn
      */
     private StateVariablesEstimator getEstimator(SharedState state) {
-        String[] navigatorItems = {"Low Pass Filter", "Kalman Filter", "Exit"};
+        String[] navigatorItems = {"Low Pass Filter", "Kalman Filter", "Combined Filter", "Exit"};
         TextMenu main = new TextMenu(navigatorItems, 1, "Estimator");
         LCD.clear();
         int selection = main.select();
@@ -112,6 +113,8 @@ public class EV3Way {
                 return new LowPassFilterEstimator();
             case 1:
                 return new KalmanEstimator(state);
+            case 2:
+                return new CombinedEstimator(state);
         }
         System.exit(0);
         return null;

@@ -310,4 +310,8 @@ public class TiltFilter {
     public float get_kalman_angle() {
         return angle;
     }
+
+    public void set_gyro_bias(float bias) {
+        q_bias = bias;
+    }
 }

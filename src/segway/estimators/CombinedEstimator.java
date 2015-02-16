@@ -4,13 +4,17 @@ import segway.StateVariablesEstimator;
 import segway.utils.SharedState;
 
 /**
- * @author Max Morozov
+ *
  */
-public class KalmanEstimator implements StateVariablesEstimator {
+public class CombinedEstimator implements StateVariablesEstimator {
     static final float psi_ref = -9.5f;    /* equilibrium point angle. The robot does not have perfect symmetry and the equilibrium point angle is not zero. */
 
+    private float angularVelocity = 0;
+    private float angle = 0;
+    private float nextAngle = 0;
+
     /**
-     * Kalman filter to evaluate angle and angular velocity
+     * Kalman filter to evaluate gyro bias
      */
     private final TiltFilter filter = new TiltFilter();
 
@@ -19,12 +23,9 @@ public class KalmanEstimator implements StateVariablesEstimator {
      */
     private float lastMeasuredAngle = 0;
 
-    private float angle = 0;
-    private float nextAngle = 0;
-
     private final SharedState sharedState;
 
-    public KalmanEstimator(SharedState sharedState) {
+    public CombinedEstimator(SharedState sharedState) {
         this.sharedState = sharedState;
     }
 
@@ -35,7 +36,7 @@ public class KalmanEstimator implements StateVariablesEstimator {
      */
     @Override
     public float getAngularVelocity() {
-        return filter.get_kalman_rate();
+        return angularVelocity;
     }
 
     /**
@@ -56,8 +57,6 @@ public class KalmanEstimator implements StateVariablesEstimator {
      */
     @Override
     public void updateState(float gyroValue, float interval) {
-        angle = nextAngle;
-
         //Kalman filter update
         filter.state_update(gyroValue, interval);
 
@@ -67,7 +66,10 @@ public class KalmanEstimator implements StateVariablesEstimator {
             lastMeasuredAngle = angle;
         }
 
-        nextAngle = filter.get_kalman_angle();
+        angularVelocity = filter.get_kalman_rate();
+
+        this.angle = nextAngle;
+        nextAngle += (interval * angularVelocity);
     }
 
     /**
