@@ -30,7 +30,7 @@ public class ControllerTask implements Runnable {
     //Gyro offset
     private float gyroOffset = 0;
     private int avgCount = 0;
-    private int gyroMax, gyroMin;
+    private float gyroMax, gyroMin;
 
     //Prepare to balance
     //1 sec = 250 periods
@@ -86,7 +86,7 @@ public class ControllerTask implements Runnable {
                 //gyroOffset = gyroOffset * Constants.GYRO_CALIBRATION_FILTER + (1 - Constants.GYRO_CALIBRATION_FILTER) * gyro.readValue();
 
                 //calibrate using average value of gyro
-                int gyroValue = readValue();
+                float gyroValue = readValue();
 
                 gyroOffset += gyroValue;
                 ++avgCount;
@@ -97,7 +97,8 @@ public class ControllerTask implements Runnable {
                     if ((gyroMax - gyroMin) > 3) {
                         currentState = State.Init;
                     } else {
-                        estimator.init(gyroOffset / avgCount + 1);
+                        gyroOffset /= avgCount;
+                        estimator.init(gyroOffset);
 
                         currentState = State.Prepare;
                         displayBalanceWarning();
@@ -163,9 +164,9 @@ public class ControllerTask implements Runnable {
         }
     }
 
-    private int readValue() {
+    private float readValue() {
         gyro.fetchSample(sample, 0);
-        return (int) sample[0];
+        return sample[0];
     }
 
     private static void displayCalibrating() {
