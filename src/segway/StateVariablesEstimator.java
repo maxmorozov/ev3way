@@ -34,4 +34,6 @@ public interface StateVariablesEstimator {
      * @param gyroOffset initial gyro offset in degrees
      */
     void init(float gyroOffset);
+
+    float getGyroOffset();
 }

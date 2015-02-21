@@ -1,6 +1,7 @@
 package segway.controller;
 
 import segway.Constants;
+import segway.utils.Log;
 
 /**
  * This controller is tuned to NXT 2.0 wheels.
@@ -56,7 +57,7 @@ public class BalanceController extends MotorbikeWheels {
      * @param battery_voltage the battery voltage in milli-volts (mV)
      * @return encoded power for left and right motors. Low byte - left motor, high byte - right motor
      */
-    public short control(int cmd_forward, int cmd_turn, float psidot, float psi, int left_motor_pos, int right_motor_pos, float battery_voltage) {
+    public short control(int cmd_forward, int cmd_turn, float psidot, float psi, int left_motor_pos, int right_motor_pos, float battery_voltage, float gyro, float angle) {
         if (firstStep) {
             lastGoodRegulationTime = System.currentTimeMillis();
             firstStep = false;
@@ -83,6 +84,33 @@ public class BalanceController extends MotorbikeWheels {
 
         //adding integral of error
         volume += K_I * prior_err_theta;
+
+        Log.State state = new Log.State();
+
+        state.time = System.nanoTime();
+        state.gyro_value = gyro;
+        state.accel_angle = angle;
+        state.motor_pos = (left_motor_pos + right_motor_pos) / 2.0f;
+
+        state.psi = psi;
+        state.psidot = psidot;
+        state.theta = theta;
+        state.thetadot = theta_dot;
+        state.theta_ref = prior_theta_ref;
+        state.thetadot_ref = thetadot_cmd_lpf;
+        state.voltage = battery_voltage;
+        state.volume = volume;
+        state.err_theta = prior_err_theta;
+
+        Log.add(state);
+
+        if (Log.size() >= 3000) {
+            //exit program
+            lastGoodRegulationTime = 0;
+            return 0;
+        }
+
+
 
         float power = (volume / (BATTERY_GAIN * battery_voltage - BATTERY_OFFSET)) * POWER_MAX;
 

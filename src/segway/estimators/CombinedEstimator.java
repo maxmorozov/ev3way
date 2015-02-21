@@ -81,4 +81,9 @@ public class CombinedEstimator implements StateVariablesEstimator {
     public void init(float gyroOffset) {
         filter.set_gyro_bias(gyroOffset);
     }
+
+    @Override
+    public float getGyroOffset() {
+        return filter.get_kalman_gyro_bias();
+    }
 }

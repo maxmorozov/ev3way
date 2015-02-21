@@ -135,7 +135,9 @@ public class ControllerTask implements Runnable {
                         estimator.getAngle(),
                         leftMotor.getTachoCount(),
                         rightMotor.getTachoCount(),
-                        shared.getBatteryVoltage());
+                        shared.getBatteryVoltage(),
+                        gyroValue - gyroOffset,
+                        shared.getBodyAngle());
 
                 //Check if the robot has fallen
                 if (!controller.isOk()) {

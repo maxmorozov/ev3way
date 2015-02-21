@@ -57,4 +57,9 @@ public class LowPassFilterEstimator implements StateVariablesEstimator {
     public void init(float gyroOffset) {
         this.gyroOffset = gyroOffset;
     }
+
+    @Override
+    public float getGyroOffset() {
+        return gyroOffset;
+    }
 }
