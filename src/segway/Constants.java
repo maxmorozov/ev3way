@@ -34,4 +34,5 @@ public class Constants {
      * Converts radians to degrees
      */
     public static final float RAD_TO_DEGREE = (float)(180 / Math.PI);
+    public static final float DEG2RAD = (float) (Math.PI/180);
 }

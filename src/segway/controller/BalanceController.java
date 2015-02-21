@@ -7,7 +7,7 @@ import segway.Constants;
  *
  * @author Max Morozov
  */
-public class BalanceController {
+public class BalanceController extends MotorbikeWheels {
     /**
      * If robot power is saturated (over +/- 100) for over this time limit then
      * robot must have fallen.  In milliseconds.
@@ -17,23 +17,11 @@ public class BalanceController {
     static final float CMD_MAX = 100.0f;
     static final float POWER_MAX = 100.0f;
 
-    static final float DEG2RAD = (float) (Math.PI/180);
     static final float EXEC_PERIOD = Constants.CONTROLLER_TIME / 1000f;
     static final float EXEC_FREQUENCY = 1 / EXEC_PERIOD;
 
     static final float A_D = 0.9f;//0.8F;       /* low pass filter gain for motors average count */
     static final float A_R = 0.996F;     /* low pass filter gain for motors target count */
-
-	//NXT 2.0 wheels
-	//Discrete model
-    static final float K_F1 = -0.770037357557574F * DEG2RAD;
-    static final float K_F2 = -84.1899879423200F * DEG2RAD;
-    static final float K_F3 = -1.22027762814827F * DEG2RAD;
-    static final float K_F4 = -9.28721276122188F * DEG2RAD;
-
-    static final float K_I = -0.416689176972853F * DEG2RAD; // servo control integral gain
-
-    static final float K_THETADOT = 9.30232558139535F / DEG2RAD;   // forward target speed gain 0.2 m/s
 
     static final float K_PHIDOT = 25.0F;         /* turn target speed gain */
     static final float K_SYNC = 0.35F;           /* wheel synchronization gain */
