@@ -7,9 +7,10 @@ package segway;
  */
 public class Constants {
     // Low Path Filter Coefficients
-    public static final float BATTERY_FILTER = 0.8f;       // average battery value
+    public static final float BATTERY_FILTER = 0.8f;                // average battery value
     public static final float GYRO_CALIBRATION_FILTER = 0.8f;	    // calibrate gyro offset
     public static final float GYRO_COMPENSATION_FILTER = 0.999f;	// compensate gyro drift
+    public static final float GYRO_FILTER = 0.7f;	                // gyro smooth
 
     public static final int CONTROLLER_TIME = 8; //8 mc
     /**

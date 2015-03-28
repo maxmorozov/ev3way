@@ -1,6 +1,8 @@
 package segway.utils;
 
 /**
+ * https://en.wikipedia.org/wiki/Standard_deviation
+ * https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance
  * @author Max Morozov
  */
 public class DeviationCalc {
