@@ -23,10 +23,11 @@ public interface StateVariablesEstimator {
     /**
      * Update the estimator's state
      *
-     * @param gyroValue angular velocity in degree/sec
+     * @param rate angular velocity in degree/sec
+     * @param angle body angle in degree
      * @param interval execution interval in seconds
      */
-    void updateState(float gyroValue, float interval);
+    void updateState(float rate, float angle, float interval);
 
     /**
      * Updates the initial gyroscope offset

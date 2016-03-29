@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EV3Way.iml" filepath="$PROJECT_DIR$/EV3Way.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../ev3imu/driver/java/ev3imu/ev3imu.iml" filepath="$PROJECT_DIR$/../../../ev3imu/driver/java/ev3imu/ev3imu.iml" />
     </modules>
   </component>
 </project>

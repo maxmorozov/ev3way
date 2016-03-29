@@ -19,12 +19,6 @@ public class SharedState {
      */
     private boolean isBalancing = false;
 
-    /**
-     * The robot's body angle measured by the accelerometer task.
-     * Accelerometer sensor is slow (requires about 10 ms for reading) and it's polled by a specialized task
-     */
-    private float bodyAngle = 0;
-
     public SharedState() {
         batteryVoltage = Battery.getVoltageMilliVolt();
     }
@@ -54,13 +48,5 @@ public class SharedState {
     public void setBalancing(boolean balancing) {
         startTime = System.currentTimeMillis();
         isBalancing = balancing;
-    }
-
-    public float getBodyAngle() {
-        return bodyAngle;
-    }
-
-    public void setBodyAngle(float bodyAngle) {
-        this.bodyAngle = bodyAngle;
     }
 }

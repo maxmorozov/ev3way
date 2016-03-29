@@ -21,7 +21,7 @@ public class ControllerTask implements Runnable {
     private final Navigator navigator;
     private final BalanceController controller = new BalanceController();
 
-    private final SensorMode gyro;
+    private final SensorMode imu;
     private final EncoderMotor leftMotor;
     private final EncoderMotor rightMotor;
 
@@ -42,20 +42,22 @@ public class ControllerTask implements Runnable {
 
     private final float[] sample;
 
+    private static final boolean FILTER_GYRO = false;
+
     //private long calibrationEndTime;
 
     //the object to stop the program when the robot fell
     private final Runnable stopper;
 
-    public ControllerTask(SensorMode gyro, EncoderMotor leftMotor, EncoderMotor rightMotor, Navigator navigator, SharedState shared, StateVariablesEstimator estimator, Runnable stopper) {
-        this.gyro = gyro;
+    public ControllerTask(SensorMode imu, EncoderMotor leftMotor, EncoderMotor rightMotor, Navigator navigator, SharedState shared, StateVariablesEstimator estimator, Runnable stopper) {
+        this.imu = imu;
         this.leftMotor = leftMotor;
         this.rightMotor = rightMotor;
         this.navigator = navigator;
         this.shared = shared;
         this.estimator = estimator;
         this.stopper = stopper;
-        this.sample = new float[gyro.sampleSize()];
+        this.sample = new float[imu.sampleSize()];
     }
 
     /**
@@ -84,10 +86,10 @@ public class ControllerTask implements Runnable {
 
             case Calibrating: {
                 //calibrate using low pass filter
-                //gyroOffset = gyroOffset * Constants.GYRO_CALIBRATION_FILTER + (1 - Constants.GYRO_CALIBRATION_FILTER) * gyro.readValue();
+                //gyroOffset = gyroOffset * Constants.GYRO_CALIBRATION_FILTER + (1 - Constants.GYRO_CALIBRATION_FILTER) * gyro.readRate();
 
                 //calibrate using average value of gyro
-                float gyroValue = readValue();
+                float gyroValue = readRate();
 
                 gyroOffset += gyroValue;
                 ++avgCount;
@@ -126,8 +128,7 @@ public class ControllerTask implements Runnable {
                 byte cmd_forward = (byte) (navigation & 0xff);
                 byte cmd_turn = (byte) ((navigation >> 8) & 0xff);
 
-                float gyroValue = readValue();
-                estimator.updateState(gyroValue, EXEC_PERIOD);
+                readState();
 
                 short result = controller.control(
                         cmd_forward,
@@ -165,10 +166,24 @@ public class ControllerTask implements Runnable {
         }
     }
 
-    private float readValue() {
-        gyro.fetchSample(sample, 0);
-        gyroValue = Constants.GYRO_FILTER * gyroValue + (1 - Constants.GYRO_FILTER) * sample[0];
+    private float readRate() {
+        imu.fetchSample(sample, 0);
+        if (FILTER_GYRO)
+            gyroValue = Constants.GYRO_FILTER * gyroValue + (1 - Constants.GYRO_FILTER) * sample[5];
+        else
+            gyroValue = sample[5];
         return gyroValue;
+    }
+
+    private void readState() {
+        imu.fetchSample(sample, 0);
+        if (FILTER_GYRO)
+            gyroValue = Constants.GYRO_FILTER * gyroValue + (1 - Constants.GYRO_FILTER) * sample[5];
+        else
+            gyroValue = sample[5];
+
+        float angle = (float) Math.atan2(-sample[1], sample[0]) * Constants.RAD_TO_DEGREE;
+        estimator.updateState(gyroValue, angle, EXEC_PERIOD);
     }
 
     private static void displayCalibrating() {

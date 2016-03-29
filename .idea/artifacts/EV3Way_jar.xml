@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/EV3Way_jar</output-path>
     <root id="archive" name="EV3Way.jar">
       <element id="module-output" name="EV3Way" />
+      <element id="module-output" name="ev3imu" />
     </root>
   </artifact>
 </component>

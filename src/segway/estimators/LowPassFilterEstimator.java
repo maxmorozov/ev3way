@@ -35,16 +35,17 @@ public class LowPassFilterEstimator implements StateVariablesEstimator {
     /**
      * Update the estimator's state
      *
-     * @param gyroValue angular velocity in degree/sec
-     * @param interval  execution interval in seconds
+     * @param rate     angular velocity in degree/sec
+     * @param angle    body angle in degree
+     * @param interval execution interval in seconds
      */
     @Override
-    public void updateState(float gyroValue, float interval) {
+    public void updateState(float rate, float angle, float interval) {
         //Use low-pass filter to find average angular velocity
-        gyroOffset = gyroOffset * Constants.GYRO_COMPENSATION_FILTER + (1 - Constants.GYRO_COMPENSATION_FILTER) * gyroValue;
-        angularVelocity = gyroValue - gyroOffset;
+        gyroOffset = gyroOffset * Constants.GYRO_COMPENSATION_FILTER + (1 - Constants.GYRO_COMPENSATION_FILTER) * rate;
+        angularVelocity = rate - gyroOffset;
 
-        angle = nextAngle;
+        this.angle = nextAngle;
         nextAngle += (interval * angularVelocity);
     }
 

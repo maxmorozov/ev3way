@@ -1,5 +1,6 @@
 package segway;
 
+import lejos.hardware.sensor.imu.ImuLsm6ds3;
 import segway.estimators.CombinedEstimator;
 import segway.estimators.KalmanEstimator;
 import segway.utils.SharedState;
@@ -10,18 +11,16 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.UnregulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.HiTechnicAccelerometer;
 import lejos.utility.TextMenu;
 import segway.estimators.LowPassFilterEstimator;
 import segway.navigation.AutonomousNavigator;
 import segway.navigation.BTNavigator;
 import segway.navigation.SteadyStateNavigator;
 import segway.sensors.EV3IRSensor;
-import segway.sensors.HiTechnicGyro;
 import segway.tasks.*;
 
 public class EV3Way {
-    private Task[] tasks = new Task[4];
+    private Task[] tasks = new Task[3];
 
 
     public static void main(String[] args) {
@@ -47,10 +46,8 @@ public class EV3Way {
     }
 
     public EV3Way() {
-//        MindsensorsAbsoluteIMU imu = new MindsensorsAbsoluteIMU(SensorPort.S2);
-        HiTechnicGyro gyro = new HiTechnicGyro(SensorPort.S1);
-        HiTechnicAccelerometer accelSensor = new HiTechnicAccelerometer(SensorPort.S4);
-        EV3IRSensor irSensor = new EV3IRSensor(SensorPort.S3);
+        ImuLsm6ds3 imu = new ImuLsm6ds3(SensorPort.S1);
+        EV3IRSensor irSensor = new EV3IRSensor(SensorPort.S2);
 
         UnregulatedMotor rightMotor = new UnregulatedMotor(MotorPort.A);
         UnregulatedMotor leftMotor = new UnregulatedMotor(MotorPort.D);
@@ -58,18 +55,10 @@ public class EV3Way {
         SharedState state = new SharedState();
         Navigator navigator = getNavigator();
 
-        Runnable stopper = new Runnable() {
-            @Override
-            public void run() {
-                stop();
-            }
-        };
-
-        StateVariablesEstimator estimator = getEstimator(state);
-        tasks[0] = new Task(Constants.CONTROLLER_TIME, new ControllerTask(gyro.getRateMode(), leftMotor, rightMotor, navigator, state, estimator, stopper), Thread.MAX_PRIORITY);
+        StateVariablesEstimator estimator = getEstimator();
+        tasks[0] = new Task(Constants.CONTROLLER_TIME, new ControllerTask(imu.getCombinedMode(), leftMotor, rightMotor, navigator, state, estimator, this::stop), Thread.MAX_PRIORITY);
         tasks[1] = new Task(20, new ObstacleDetectionTask(irSensor.getDistanceMode(), state, navigator));
         tasks[2] = new Task(100, new BatteryMonitoringTask(state, navigator));
-        tasks[3] = new Task(12, new AccelerationReadTask(accelSensor, state));
     }
 
     /**
@@ -101,7 +90,7 @@ public class EV3Way {
      *
      * @return navigator instance bn
      */
-    private StateVariablesEstimator getEstimator(SharedState state) {
+    private StateVariablesEstimator getEstimator() {
         String[] navigatorItems = {"Low Pass Filter", "Kalman Filter", "Combined Filter", "Exit"};
         TextMenu main = new TextMenu(navigatorItems, 1, "Estimator");
         LCD.clear();
@@ -112,9 +101,9 @@ public class EV3Way {
             case 0:
                 return new LowPassFilterEstimator();
             case 1:
-                return new KalmanEstimator(state);
+                return new KalmanEstimator();
             case 2:
-                return new CombinedEstimator(state);
+                return new CombinedEstimator();
         }
         System.exit(0);
         return null;

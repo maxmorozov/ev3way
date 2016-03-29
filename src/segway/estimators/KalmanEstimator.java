@@ -1,7 +1,6 @@
 package segway.estimators;
 
 import segway.StateVariablesEstimator;
-import segway.utils.SharedState;
 
 /**
  * @author Max Morozov
@@ -14,19 +13,8 @@ public class KalmanEstimator implements StateVariablesEstimator {
      */
     private final TiltFilter filter = new TiltFilter();
 
-    /**
-     * Last angle from the accelerometer sensor
-     */
-    private float lastMeasuredAngle = 0;
-
     private float angle = 0;
     private float nextAngle = 0;
-
-    private final SharedState sharedState;
-
-    public KalmanEstimator(SharedState sharedState) {
-        this.sharedState = sharedState;
-    }
 
     /**
      * Returns angular velocity
@@ -51,21 +39,17 @@ public class KalmanEstimator implements StateVariablesEstimator {
     /**
      * Update the estimator's state
      *
-     * @param gyroValue angular velocity in degree/sec
-     * @param interval  execution interval in seconds
+     * @param rate     angular velocity in degree/sec
+     * @param angle    body angle in degree
+     * @param interval execution interval in seconds
      */
     @Override
-    public void updateState(float gyroValue, float interval) {
-        angle = nextAngle;
+    public void updateState(float rate, float angle, float interval) {
+        this.angle = nextAngle;
 
         //Kalman filter update
-        filter.state_update(gyroValue, interval);
-
-        float angle = sharedState.getBodyAngle();
-        if (lastMeasuredAngle != angle) {
-            filter.kalman_update(angle - psi_ref);
-            lastMeasuredAngle = angle;
-        }
+        filter.state_update(rate, interval);
+        filter.kalman_update(angle - psi_ref);
 
         nextAngle = filter.get_kalman_angle();
     }
