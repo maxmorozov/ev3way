@@ -6,6 +6,8 @@ import lejos.robotics.SampleProvider;
 import segway.Navigator;
 
 /**
+ * Task that finds obstacles in front of the robot
+ *
  * @author Max Morozov
  */
 public class ObstacleDetectionTask implements Runnable {

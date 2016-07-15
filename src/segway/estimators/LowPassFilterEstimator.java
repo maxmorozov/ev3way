@@ -4,6 +4,9 @@ import segway.StateVariablesEstimator;
 import segway.Constants;
 
 /**
+ * This estimator uses low-pass filter to find gyroscope offset
+ * Angle is calculated by integration of the angular velocity values
+ *
  * @author Max Morozov
  */
 public class LowPassFilterEstimator implements StateVariablesEstimator {
@@ -41,7 +44,7 @@ public class LowPassFilterEstimator implements StateVariablesEstimator {
      */
     @Override
     public void updateState(float rate, float angle, float interval) {
-        //Use low-pass filter to find average angular velocity
+        //Use low-pass filter to calculate gyroscope offset
         gyroOffset = gyroOffset * Constants.GYRO_COMPENSATION_FILTER + (1 - Constants.GYRO_COMPENSATION_FILTER) * rate;
         angularVelocity = rate - gyroOffset;
 

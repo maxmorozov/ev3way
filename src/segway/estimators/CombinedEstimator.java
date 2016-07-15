@@ -3,7 +3,9 @@ package segway.estimators;
 import segway.StateVariablesEstimator;
 
 /**
- *
+ * This estimator uses Kalman filter to calculate gyroscope offset and to smooth
+ * angular velocity values.
+ * It uses integration to calculate angle values.
  */
 public class CombinedEstimator implements StateVariablesEstimator {
     static final float psi_ref = -9.5f;    /* equilibrium point angle. The robot does not have perfect symmetry and the equilibrium point angle is not zero. */

@@ -6,6 +6,10 @@ import lejos.remote.nxt.NXTConnection;
 import segway.Navigator;
 
 /**
+ * Navigator that uses remote controler via Bluetooth.
+ * <p/>
+ * It has not been tested on EV3 yet.
+ *
  * @author Max Morozov
  */
 public class BTNavigator implements Navigator {

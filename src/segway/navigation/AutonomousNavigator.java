@@ -3,6 +3,8 @@ package segway.navigation;
 import segway.Navigator;
 
 /**
+ * Navigator that allows the robot move about the room with obstacle avoidance.
+ *
  * @author Max Morozov
  */
 public class AutonomousNavigator implements Navigator {

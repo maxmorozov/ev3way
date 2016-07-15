@@ -10,6 +10,8 @@ import lejos.hardware.sensor.SensorMode;
 /**
  * <b>HiTechnic NXT Gyro Sensor</b><br>
  * The NXT Gyro Sensor contains a single axis gyroscopic sensor that detects rotation.
+ * <p/>
+ * Modified version with different rotation direction. Also zero point can be set by the user code.
  *
  * <p style="color:red;">
  * The code for this sensor has not been tested. Please report test results to

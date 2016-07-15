@@ -3,7 +3,8 @@ package segway.controller;
 import segway.Constants;
 
 /**
- * This controller is tuned to NXT 2.0 wheels.
+ * The controller that calculates the motor control signal from the
+ * current sensors values.
  *
  * @author Max Morozov
  */

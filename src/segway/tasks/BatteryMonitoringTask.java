@@ -5,6 +5,8 @@ import segway.utils.SharedState;
 import segway.Navigator;
 
 /**
+ * Task to monitor battery voltage
+ *
  * @author Max Morozov
  */
 public class BatteryMonitoringTask implements Runnable {

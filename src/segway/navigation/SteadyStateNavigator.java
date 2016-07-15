@@ -3,6 +3,8 @@ package segway.navigation;
 import segway.Navigator;
 
 /**
+ * Keeps the robot in the one state
+ *
  * @author Max Morozov
  */
 public class SteadyStateNavigator implements Navigator{

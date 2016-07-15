@@ -3,6 +3,9 @@ package segway.estimators;
 import segway.StateVariablesEstimator;
 
 /**
+ * This estimator uses Kalman filter to calculate gyroscope offset and
+ * smooths angular velocity and angle values
+ *
  * @author Max Morozov
  */
 public class KalmanEstimator implements StateVariablesEstimator {

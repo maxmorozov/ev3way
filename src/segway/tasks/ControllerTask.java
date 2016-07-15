@@ -12,6 +12,8 @@ import lejos.robotics.EncoderMotor;
 import segway.Navigator;
 
 /**
+ * Main control loop task
+ *
  * @author Max Morozov
  */
 public class ControllerTask implements Runnable {
@@ -42,7 +44,7 @@ public class ControllerTask implements Runnable {
 
     private final float[] sample;
 
-    private static final boolean FILTER_GYRO = false;
+    private static final boolean FILTER_GYRO = true;
 
     //private long calibrationEndTime;
 

@@ -9,8 +9,9 @@ import lejos.hardware.sensor.UARTSensor;
 /**
  * <b>EV3 Infra Red sensor</b><br>
  * The digital EV3 Infrared Seeking Sensor detects proximity to the robot and reads signals emitted by the EV3 Infrared Beacon. The sensor can alse be used as a receiver for a Lego Ev3 IR remote control.
- * 
- * 
+ * <p/>
+ * Modified version with higher measurement range.
+ *
  * <p>
  * <table border=1>
  * <tr>
